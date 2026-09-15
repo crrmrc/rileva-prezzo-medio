@@ -271,6 +271,32 @@ function Index() {
                           </TableCell>
                         </TableRow>
                       ))}
+                      {filtroAttivo && visibili.length < (righe?.length ?? 0) ? (
+                        <TableRow className="bg-primary/5">
+                          <TableCell className="font-semibold text-primary">
+                            Parziale ({visibili.length} di {righe?.length})
+                          </TableCell>
+                          <TableCell className="text-right font-semibold">
+                            {parziali.movimenti}
+                          </TableCell>
+                          <TableCell />
+                          <TableCell className="text-right font-semibold">
+                            € {num(parziali.incassato)}
+                          </TableCell>
+                          <TableCell className="text-right font-semibold">
+                            € {num(parziali.venduto)}
+                          </TableCell>
+                          <TableCell className="text-right font-semibold">
+                            {num(parziali.erogazioni, 3)}
+                          </TableCell>
+                          <TableCell className="text-right font-semibold">
+                            {prezzo(parziali.medioIncassato)}
+                          </TableCell>
+                          <TableCell className="text-right font-semibold">
+                            {prezzo(parziali.medioVenduto)}
+                          </TableCell>
+                        </TableRow>
+                      ) : null}
                       <TableRow className="bg-secondary/60">
                         <TableCell className="font-semibold">Totale</TableCell>
                         <TableCell className="text-right font-semibold">
