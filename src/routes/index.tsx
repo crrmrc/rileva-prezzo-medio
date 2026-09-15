@@ -73,6 +73,25 @@ function Index() {
     return q ? righe.filter((r) => r.puntoVendita.toLowerCase().includes(q)) : righe;
   }, [righe, filtro]);
 
+  const parziali = useMemo(() => {
+    const t = visibili.reduce(
+      (acc, r) => ({
+        incassato: acc.incassato + r.incassato,
+        venduto: acc.venduto + r.venduto,
+        erogazioni: acc.erogazioni + r.erogazioni,
+        movimenti: acc.movimenti + r.movimenti,
+      }),
+      { incassato: 0, venduto: 0, erogazioni: 0, movimenti: 0 },
+    );
+    return {
+      ...t,
+      medioIncassato: t.erogazioni ? t.incassato / t.erogazioni : null,
+      medioVenduto: t.erogazioni ? t.venduto / t.erogazioni : null,
+    };
+  }, [visibili]);
+
+  const filtroAttivo = filtro.trim().length > 0;
+
   async function onFile(file: File) {
     setCaricamento(true);
     setErrore(null);
